@@ -1,34 +1,30 @@
 #include <iostream>
+#include <numeric>
+#include <iostream>
 #include <string>
 
-//divide largest by smallest 
-//replace smallest by remainder and largest by smallest
-//keep doing this until smalles (b) = 0, a = the gcd;
-int gcd(int a, int b) {
-    while (b != 0) {
-        int temp = a % b;
-        a = b;
-        b = temp;
-    }
-    return a;
-}
-
 class Solution {
-    
-    public:
-        std::string gcdOfStrings(std::string str1, std::string str2) {
-            if (str1 + str2 != str2 + str1) {
-                return ""; // If the concatenations are not equal, there is no common divisor substring
-            }
-            if (str1.size() < str2.size()) {
-                int result = gcd(str2.size(), str1.size());
-                return str2.substr(0, result); 
-            }
-            else {
-                int result = gcd(str1.size(), str2.size());
-                return str1.substr(0, result); 
-            };
+public:
+    std::string gcdOfStrings(std::string str1, std::string str2) {
+        std::string output;
+        size_t number;
+        if (str1 + str2 != str2 + str1) {
+            output = "";
+            return output;
         }
+        int a = str1.size();
+        int b = str2.size();
+        //check for the biggest number to pass as first parameter
+        if (a > b) {
+            number = std::gcd(a, b);
+            output = str1.substr(0, number);
+        }
+        else {
+            number = std::gcd(b, a);
+            output = str2.substr(0, number);
+        }
+        return output;
+    }
 };
 
 int main() {
