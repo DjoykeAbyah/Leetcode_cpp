@@ -1,26 +1,45 @@
+#include <vector>
+#include <iostream>
+
 class Solution {
 public:
-    int compress(vector<char>& chars) {
-        std::string s;
+    int compress(std::vector<char>& chars) {
         int size = chars.size();
-        int j;
-        //if group len = 1 append char to s
-        //if group len = 10 append len to single char and continue
-        //else append len to single char
-        for (int i = 0; i < size; i++) {
-            j = 0;
-            while (chars[i] + 1 == chars[i]) {
-                j++;
+        int write = 0;
+        for (int i = 0; i < size;) {
+            char currentchar = chars[i];
+            int count = 0;
+
+            //count occurences of the current character
+            while (i < size && chars[i] == currentchar) {
+                i++;
+                count++;
             }
-            s[i] = chars[i];
-            if (j >= 10) {
-                s[i + 1] = (j + 1) / 10;
-                s[i + 2] = (j + 1) % 10;
-                i = i + j;
-            }
-            else {
-                s[i + 1] = j + 1;
-                i = i + j;
-            }
+            // write characters
+            chars[write] = currentchar;
+            write++;
+
+            //write the count if greater than 1
+            if (count > 1) {
+                std::string countStr = std::to_string(count);
+                for (char c : countStr) {
+                    chars[write] = c;
+                    write++;
+                }
+            }  
         }
+        return write; 
+    }
 };
+
+int main() {
+    std::vector<char> charvector = {'a','a','b','b','c','c','c'};
+    // std::vector<char> charvector = {'a','a'};
+    Solution solution;
+    
+    int result = solution.compress(charvector);
+    std::cout << "result = " << result << std::endl;
+    for (char chars : charvector) {
+        std::cout << chars << std::endl;
+    }
+}
