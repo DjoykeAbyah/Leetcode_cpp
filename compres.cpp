@@ -5,7 +5,7 @@ class Solution {
 public:
     int compress(std::vector<char>& chars) {
         int size = chars.size();
-        int write = 0;
+        int writePos = 0;
         for (int i = 0; i < size;) {
             char currentchar = chars[i];
             int count = 0;
@@ -16,19 +16,19 @@ public:
                 count++;
             }
             // write characters
-            chars[write] = currentchar;
-            write++;
+            chars[writePos] = currentchar;
+            writePos++;
 
             //write the count if greater than 1
             if (count > 1) {
                 std::string countStr = std::to_string(count);
                 for (char c : countStr) {
-                    chars[write] = c;
-                    write++;
+                    chars[writePos] = c;
+                    writePos++;
                 }
             }  
         }
-        return write; 
+        return writePos; 
     }
 };
 
