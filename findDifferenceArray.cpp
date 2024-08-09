@@ -13,15 +13,12 @@ public:
         std::unordered_set<int> set2(nums2.begin(), nums2.end());
 
         //unordered set find method only needs the key
-        //find numbers in nums1 that arent in nums2
         // Remove elements from set1 that are found in set2
         for (int num : nums2) {
             set1.erase(num);  // Removes num from set1 if it exists
         }
-
-
-        //find numbers in nums2 that arent in nums1
-       // Remove elements from set1 that are found in set2
+        
+        // Remove elements from set1 that are found in set2
         for (int num : nums1) {
             set2.erase(num);  // Removes num from set1 if it exists
         }
